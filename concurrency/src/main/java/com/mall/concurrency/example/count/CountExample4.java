@@ -1,4 +1,4 @@
-package com.mall.concurrency;
+package com.mall.concurrency.example.count;
 
 import com.mall.concurrency.annoations.NotThreadSafe;
 import lombok.extern.slf4j.Slf4j;
@@ -10,14 +10,14 @@ import java.util.concurrent.Semaphore;
 
 @Slf4j
 @NotThreadSafe
-public class ConcurrencyTest {
+public class CountExample4 {
 
     //请求总数
     public static int clientTotal=5000;
     //同时并发执行的线程数
     public static int threadTotal=20;
 
-    public static int count=0;
+    public static volatile int count=0;
     public static void main(String[] args) throws Exception{
 
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -46,5 +46,9 @@ public class ConcurrencyTest {
 
     private static void add(){
         count++;
+        //1.读取主存中count
+        //2.+1
+        //3.count写回主存
+        //volatile不具有原子性
     }
 }
