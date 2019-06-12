@@ -1,6 +1,5 @@
 package com.mall.concurrency.singlton;
 
-import com.mall.concurrency.annoations.NotRecommend;
 import com.mall.concurrency.annoations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @ThreadSafe
-public class SingletonExample4 {
+public class SingletonExample5 {
     //私有构造函数
-    private SingletonExample4() {
+    private SingletonExample5() {
     }
 
     //1.memory = allocate() 分配对象的内存空间
@@ -25,15 +24,15 @@ public class SingletonExample4 {
     //1.memory = allocate() 分配对象的内存空间
     //3.instance=memory 设置instance指向刚分配的内存
     //2.ctorInstance()初始化对象
-    //单例对象
-    private static SingletonExample4 instance = null;
+    //单例对象 volatile+双重检测机制-》禁止指令重排
+    private volatile static SingletonExample5 instance = null;
 
     //静态的工厂方法
-    public static SingletonExample4 getInstance() {
+    public static SingletonExample5 getInstance() {
         if (instance == null) {//双重检测机制   //B-
-            synchronized (SingletonExample4.class) {//同步锁
+            synchronized (SingletonExample5.class) {//同步锁
                 if (null == instance) {
-                    instance = new SingletonExample4();//A-3
+                    instance = new SingletonExample5();//A-3
                 }
             }
         }
