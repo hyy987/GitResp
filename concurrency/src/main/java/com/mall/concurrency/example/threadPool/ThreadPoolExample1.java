@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class ThreadPoolExample1 {
     public static void main(String[] args){
+        //创建可缓存的线程池灵活回收空闲线程
         ExecutorService executorService = Executors.newCachedThreadPool();
         for(int i=0;i<10;i++){
             final int index =i;
